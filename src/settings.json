@@ -1,0 +1,11 @@
+{
+    "fileTemplates.templates": {
+        "TypeScript File": {
+            "body": "",
+            "description": "TypeScript file",
+            "extension": ".ts"
+        }
+    },
+    "fileTemplates.includeDefaultTemplates": false,
+    "fileTemplates.autoGenerateFiles": true
+}

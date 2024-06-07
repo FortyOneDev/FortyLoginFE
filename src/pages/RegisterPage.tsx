@@ -1,6 +1,5 @@
-import React from 'react';
 import { RegisterScreen } from '../components';
-import '../../assets/styles/styles.css';
+import '../assets/styles/styles.css';
 
 export const RegisterPage = () => {
   return (

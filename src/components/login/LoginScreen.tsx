@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { checkingAuthentication } from '../../store/auth';
-import { ThunkDispatch } from 'redux-thunk';
-import { RootState, AppDispatch } from '../../store';
+import { AppDispatch } from '../../store';
 
 interface LoginForm {
   email: string;
@@ -15,10 +14,9 @@ export const LoginScreen: React.FC = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<LoginForm>({
     email: 'nfernandez@fortyone.com.ar',
-    password: '123456'
+    password: 'password'
   });
   
-
   const { email, password } = formData;
 
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

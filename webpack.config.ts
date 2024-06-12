@@ -1,5 +1,10 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const ruleForTypeScript = {
     test: /\.tsx?$/,
@@ -23,7 +28,7 @@ const ruleForTypeScript = {
     exclude: /node_modules/,
 };
 
-const ruleForStyles =     {
+const ruleForStyles = {
     test: /\.css$/,
     use: ['style-loader', 'css-loader'],
 };
@@ -40,16 +45,54 @@ module.exports = (env, argv) => {
             path: path.resolve(__dirname, 'build'),
             filename: isProduction 
             ? '[name].[contenthash].js'
-            : 'main.js'
+            : '[name].js'
         },
         resolve: {
             extensions: ['.ts', '.tsx', '.js', '.jsx'],
             alias: {
                 'react': 'react',
+            },
+            fallback: {
+                crypto: require.resolve('crypto-browserify'),
+                stream: require.resolve('stream-browserify'),
+                assert: require.resolve('assert'),
+                zlib: require.resolve('browserify-zlib'),
+                util: require.resolve('util'),
+                buffer: require.resolve('buffer/'),
+                process: require.resolve('process/browser.js'),
+                vm: require.resolve('vm-browserify')
+            }
+        },
+        optimization: {
+            minimize: true,
+            minimizer: [new TerserPlugin()],
+            splitChunks: {
+                chunks: 'all',
+                cacheGroups: {
+                    vendors: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: 'vendors',
+                        chunks: 'all',
+                    },
+                },
             }
         },
         plugins: [
-          new HtmlWebpackPlugin({ template: 'public/index.html' })  
+          new HtmlWebpackPlugin({ template: 'public/index.html' }),
+          new webpack.ProvidePlugin({
+            Buffer: ['buffer', 'Buffer'],
+            process: 'process/browser.js'
+          }),
+          new BundleAnalyzerPlugin({
+            analyzerMode: 'server',
+            analyzerHost: '127.0.0.1',
+            analyzerPort: 8888,
+            openAnalyzer: false,
+          }),
+          new CompressionPlugin({
+            algorithm: 'gzip',
+          }),
+          new CleanWebpackPlugin(),
         ],
         module: {
             rules
@@ -63,4 +106,3 @@ module.exports = (env, argv) => {
         //devtool: 'source-map'
     }
 };
-;

@@ -63,23 +63,4 @@ module.exports = (env, argv) => {
         //devtool: 'source-map'
     }
 };
-module.exports = {
-    entry: './src/index.js',
-    output: {
-      filename: 'bundle.js',
-      path: path.resolve(__dirname, 'dist')
-    },
-    module: {
-      rules: [
-        {
-          test: /\.scss$/,
-          use: [
-            'style-loader', // Inyecta estilos CSS en el DOM
-            'css-loader',   // Traduce CSS a módulos CommonJS
-            'sass-loader'   // Compila Sass a CSS
-          ]
-        }
-      ]
-    }
-  };
 ;

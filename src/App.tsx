@@ -1,4 +1,5 @@
-import './assets/styles/styles.css';
+
+import './App.css';
 import { Footer } from './components/index';
 import { AuthRoutes } from './routes/AuthRoutes';
 

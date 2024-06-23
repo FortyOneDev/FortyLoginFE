@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { checkingAuthentication } from '../../store/auth';
@@ -19,8 +19,20 @@ export const LoginScreen: React.FC = () => {
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
 
     const { email, password } = formData;
+
+    useEffect(() => {
+        const rememberedEmail = localStorage.getItem('rememberedEmail');
+        if (rememberedEmail) {
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                email: rememberedEmail,
+            }));
+            setRememberMe(true);
+        }
+    }, []);
 
     const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -28,6 +40,10 @@ export const LoginScreen: React.FC = () => {
             ...formData,
             [name]: value
         });
+    };
+
+    const onCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRememberMe(event.target.checked);
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -38,6 +54,12 @@ export const LoginScreen: React.FC = () => {
             await dispatch(checkingAuthentication(email, password));
             const lastPath = localStorage.getItem('lastPath') || '/';
             navigate(lastPath, { replace: true });
+
+            if (rememberMe) {
+                localStorage.setItem('rememberedEmail', email);
+            } else {
+                localStorage.removeItem('rememberedEmail');
+            }
         } catch (e) {
             setError('Error de autenticación. Por favor, revisa tus credenciales.');
         } finally {
@@ -77,8 +99,15 @@ export const LoginScreen: React.FC = () => {
                         <i className='bx bxs-lock-alt'></i>
                     </div>
                     <div className="remember-forgot">
-                        <label><input type="checkbox" />Recuérdame</label>
-                        <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={rememberMe}
+                                onChange={onCheckboxChange}
+                            />
+                            Recuérdame
+                        </label>
+                        <Link to="/forgotpassword">¿Olvidaste tu contraseña?</Link>
                     </div>
                     {error && <p className="error-message">{error}</p>}
                     <button type="submit" className="btn" disabled={loading}>

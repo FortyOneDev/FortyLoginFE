@@ -1,0 +1,34 @@
+{
+  "login": {
+      "title": "Login",
+      "emailPlaceholder": "Email",
+      "passwordPlaceholder": "Password",
+      "rememberMe": "Remember Me",
+      "forgotPassword": "Forgot Password?",
+      "loading": "Loading...",
+      "noAccount": "Don't have an account?",
+      "register": "Register",
+      "login": "Login"
+  },
+  "forgotPassword": {
+    "Title": "Forgot Password",
+    "Instruction": "Enter your email address.",
+    "EmailPlaceholder": "Email",
+    "EmailDataMsg": "Please enter your email address.",
+    "SubmitButton": "Submit"
+  },
+  "register": {
+      "title": "Register",
+      "userPlaceholder": "Username",
+      "emailPlaceholder": "Email",
+      "confirmEmailPlaceholder": "Confirm Email",
+      "passwordPlaceholder": "Password",
+      "emailMismatch": "Emails do not match.",
+      "passwordLength": "Password must be at least 6 characters.",
+      "registrationError": "Registration error. Please try again.",
+      "userValidationMessage": "Please enter your username.",
+      "emailValidationMessage": "Please enter your email.",
+      "loading": "Loading...",
+      "register": "Register"
+  }
+}

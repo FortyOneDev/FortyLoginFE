@@ -1,8 +1,11 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './ForgotPassword.scss';
 
-export const ForgotPasswordScreen = () => {
+export const ForgotPasswordScreen: React.FC = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation('global');
 
     const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault(); 
@@ -14,29 +17,29 @@ export const ForgotPasswordScreen = () => {
 
     return (
         <div className="wrapper">
-            <h1 className='text-center' id='title'>Recupero de Contraseña</h1>
+            <h1 className='text-center' id='title'>{t('forgotPassword.Title')}</h1>
             <br />
-            <p className='text-center'>Introduzca su dirección de correo electrónico.</p>
-            <form  onSubmit={handleLogin}>
+            <p className='text-center'>{t('forgotPassword.Instruction')}</p>
+            <form onSubmit={handleLogin}>
                 <div className="input-box">
                     <input 
                         id="Email" 
                         type="email" 
                         name="Email" 
-                        placeholder="Email" 
+                        placeholder={t('forgotPassword.EmailPlaceholder')} 
                         required 
-                        data-msg="Por favor ingrese su contraseña actual" 
+                        data-msg={t('forgotPassword.EmailDataMsg')} 
                         className="input-material" 
                     />
                     <i className='bx bxs-envelope'></i>
                 </div>
-                <div >
+                <div>
                     <button 
                         type="submit"
                         id='btnLogin' 
                         className="btn btn-block btn-success rounded mb-5"
                     >
-                        Enviar
+                        {t('forgotPassword.SubmitButton')}
                     </button>
                 </div>
             </form>

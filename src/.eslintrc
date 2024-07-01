@@ -6,7 +6,7 @@
   ],
   "plugins": ["@typescript-eslint"],
   "rules": {
-    "indent": ["error", 4],
+    "indent": "off",
     "quotes": ["error", "single"]
   },
   "settings": {

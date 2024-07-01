@@ -1,0 +1,35 @@
+{
+  "login": {
+    "title": "Iniciar Sesión",
+    "emailPlaceholder": "Correo Electrónico",
+    "passwordPlaceholder": "Contraseña",
+    "rememberMe": "Recuérdame",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "loading": "Cargando...",
+    "login": "Iniciar Sesión",
+    "noAccount": "¿No tienes una cuenta?",
+    "register": "Registrarse",
+    "authenticationError": "Error de autenticación. Por favor, inténtalo de nuevo."
+  },
+  "forgotPassword": {
+    "Title": "Recuperación de Contraseña",
+    "Instruction": "Introduce tu dirección de correo electrónico.",
+    "EmailPlaceholder": "Correo Electrónico",
+    "EmailDataMsg": "Por favor ingresa tu dirección de correo electrónico.",
+    "SubmitButton": "Enviar"
+  },
+  "register": {
+    "title": "Registro",
+    "userPlaceholder": "Usuario",
+    "emailPlaceholder": "Email",
+    "confirmEmailPlaceholder": "Confirmar Email",
+    "passwordPlaceholder": "Contraseña",
+    "emailMismatch": "Los correos electrónicos no coinciden.",
+    "passwordLength": "La contraseña debe tener al menos 6 caracteres.",
+    "registrationError": "Error en el registro. Por favor, inténtelo de nuevo.",
+    "userValidationMessage": "Por favor ingrese su Usuario",
+    "emailValidationMessage": "Por favor ingrese su Email",
+    "loading": "Cargando...",
+    "register": "Registrarse"
+  }
+}

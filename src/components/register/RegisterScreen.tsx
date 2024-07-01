@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Register.scss';
+import './RegisterScreen';
+import { useTranslation } from 'react-i18next';
 
 interface RegisterForm {
     user: string;
@@ -10,6 +12,8 @@ interface RegisterForm {
 }
 
 export const RegisterScreen: React.FC = () => {
+    const { t } = useTranslation();
+
     const navigate = useNavigate();
     const [formData, setFormData] = useState<RegisterForm>({
         user: '',
@@ -33,24 +37,24 @@ export const RegisterScreen: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (email !== confirmEmail) {
-            setError('Los emails no coinciden.');
+            setError(t('register.emailMismatch'));
             return;
         }
         if (password.length < 6) {
-            setError('La contraseña debe tener al menos 6 caracteres.');
+            setError(t('register.passwordLength'));
             return;
         }
         setLoading(true);
         setError('');
 
         try {
-            // logica para enviar los datos al servidor
+            // Lógica para enviar los datos al servidor
             // await registerUser(formData);
 
             const lastPath = localStorage.getItem('lastPath') || '/';
             navigate(lastPath, { replace: true });
         } catch (e) {
-            setError('Error en el registro. Por favor, inténtelo de nuevo.');
+            setError(t('register.registrationError'));
         } finally {
             setLoading(false);
         }
@@ -60,15 +64,15 @@ export const RegisterScreen: React.FC = () => {
         <div>
             <div className="wrapper">
                 <form action="" onSubmit={handleSubmit}>
-                    <h1>Registro</h1>
+                    <h1>{t('register.title')}</h1>
                     <div className="input-box">
                         <input
                             id="user"
                             type="text"
                             name="user"
-                            placeholder="Usuario"
+                            placeholder={t('register.userPlaceholder')}
                             required
-                            data-msg="Por favor ingrese su Usuario"
+                            data-msg={t('register.userValidationMessage')}
                             className="input-material"
                             value={user}
                             onChange={onInputChange}
@@ -80,9 +84,9 @@ export const RegisterScreen: React.FC = () => {
                             id="email"
                             type="email"
                             name="email"
-                            placeholder="Email"
+                            placeholder={t('register.emailPlaceholder')}
                             required
-                            data-msg="Por favor ingrese su Email"
+                            data-msg={t('register.emailValidationMessage')}
                             className="input-material"
                             value={email}
                             onChange={onInputChange}
@@ -94,9 +98,9 @@ export const RegisterScreen: React.FC = () => {
                             id="confirm-email"
                             type="email"
                             name="confirmEmail"
-                            placeholder="Confirme su Email"
+                            placeholder={t('register.confirmEmailPlaceholder')}
                             required
-                            data-msg="Por favor ingrese su Email"
+                            data-msg={t('register.emailValidationMessage')}
                             className="input-material"
                             value={confirmEmail}
                             onChange={onInputChange}
@@ -107,7 +111,7 @@ export const RegisterScreen: React.FC = () => {
                         <input
                             type="password"
                             name="password"
-                            placeholder="Contraseña"
+                            placeholder={t('register.passwordPlaceholder')}
                             required
                             minLength={6}
                             value={password}
@@ -121,7 +125,7 @@ export const RegisterScreen: React.FC = () => {
                         className="btn"
                         disabled={loading}
                     >
-                        {loading ? 'Cargando...' : 'Registrarse'}
+                        {loading ? t('register.loading') : t('register.register')}
                     </button>
                     <div className="register-link"></div>
                 </form>

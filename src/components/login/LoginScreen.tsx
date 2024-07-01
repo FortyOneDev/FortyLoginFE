@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { checkingAuthentication } from '../../store/auth';
 import { AppDispatch } from '../../store';
+import { useTranslation } from 'react-i18next';
 import './Login.scss';
 
 interface LoginForm {
@@ -11,6 +12,7 @@ interface LoginForm {
 }
 
 export const LoginScreen: React.FC = () => {
+    const { t } = useTranslation(); // Importa useTranslation y obtén la función de traducción t
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
     const [formData, setFormData] = useState<LoginForm>({
@@ -61,7 +63,7 @@ export const LoginScreen: React.FC = () => {
                 localStorage.removeItem('rememberedEmail');
             }
         } catch (e) {
-            setError('Error de autenticación. Por favor, revisa tus credenciales.');
+            setError(t('login.authenticationError')); // Utiliza las traducciones adecuadas aquí
         } finally {
             setLoading(false);
         }
@@ -71,15 +73,15 @@ export const LoginScreen: React.FC = () => {
         <div>
             <div className="wrapper">
                 <form action="" onSubmit={handleSubmit}>
-                    <h1>Login</h1>
+                    <h1>{t('login.title')}</h1>
                     <div className="input-box">
                         <input
                             id="email"
                             type="email"
                             name="email"
-                            placeholder="Email"
+                            placeholder={t('login.emailPlaceholder')} 
                             required
-                            data-msg="Por favor ingrese su Email"
+                            data-msg={t('login.emailValidationMessage')} 
                             className="input-material"
                             value={email}
                             onChange={onInputChange}
@@ -90,7 +92,7 @@ export const LoginScreen: React.FC = () => {
                         <input
                             type="password"
                             name="password"
-                            placeholder="Contraseña"
+                            placeholder={t('login.passwordPlaceholder')} 
                             required
                             minLength={6}
                             value={password}
@@ -105,16 +107,16 @@ export const LoginScreen: React.FC = () => {
                                 checked={rememberMe}
                                 onChange={onCheckboxChange}
                             />
-                            Recuérdame
+                            {t('login.rememberMe')}
                         </label>
-                        <Link to="/forgotpassword">¿Olvidaste tu contraseña?</Link>
+                        <Link to="/forgotpassword">{t('login.forgotPassword')}</Link>
                     </div>
                     {error && <p className="error-message">{error}</p>}
                     <button type="submit" className="btn" disabled={loading}>
-                        {loading ? 'Cargando...' : 'Login'}
+                        {loading ? t('login.loading') : t('login.login')} 
                     </button>
                     <div className="register-link">
-                        <p>No tienes cuenta? <Link to="/register">Regístrate</Link></p>
+                        <p>{t('login.noAccount')} <Link to="/register">{t('login.register')}</Link></p> 
                     </div>
                 </form>
             </div>

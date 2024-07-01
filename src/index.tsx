@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import store from './store';
 import './assets/styles/styles.css';
+import './i18n';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -13,7 +14,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <App />
+          <App />
       </Router>
     </Provider>
   </React.StrictMode>
